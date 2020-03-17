@@ -4,7 +4,9 @@ const path = require("path");
 const { videoToken } = require("./tokens");
 
 const app = express();
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(pino);
 app.use(express.static(path.join(__dirname, "client/build")));
 
 const sendTokenResponse = (token, res) => {
