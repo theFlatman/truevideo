@@ -1,5 +1,7 @@
 const config = require("./config");
 const express = require("express");
+const bodyParser = require("body-parser");
+const pino = require("express-pino-logger")();
 const path = require("path");
 const { videoToken } = require("./tokens");
 
