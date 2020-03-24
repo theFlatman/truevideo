@@ -119,10 +119,7 @@ const StyledHeader = styled.header`
   svg {
     height: 50px;
     width: 200px;
-
-    path {
-      fill: #c5986a;
-    }
+    fill: #c5986a;
   }
 `;
 
@@ -185,14 +182,14 @@ const NavigationAuth = ({ authUser }) => (
 );
 
 const NavigationNonAuth = () => (
-  <ul>
+  <div>
     <Link to={ROUTES.LANDING}>
       <Logo />
     </Link>
-    <li>
+    <button>
       <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-    </li>
-  </ul>
+    </button>
+  </div>
 );
 
 const mapStateToProps = state => ({

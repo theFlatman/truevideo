@@ -14,8 +14,6 @@ import AdminPage from "../Admin";
 
 import history from "../../history";
 import * as ROUTES from "../../constants/routes";
-import { withAuthentication } from "../Session";
-import RenderedApp from "./renderedApp";
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -44,8 +42,31 @@ const ContentWrapper = styled.div`
   justify-content: center;
 `;
 
-const App = () => {
-  return <RenderedApp />;
-};
+const RenderedApp = () => (
+  <div>
+    <Router history={history}>
+      <GlobalStyles />
+      <FlexWrapper>
+        <NavigationWrapper>
+          <Navigation />
+        </NavigationWrapper>
+        <ContentWrapper>
+          <Switch>
+            <Route exact path={ROUTES.LANDING} component={LandingPage} />
+            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+            <Route
+              path={ROUTES.PASSWORD_FORGET}
+              component={PasswordForgetPage}
+            />
+            <Route path={ROUTES.HOME} component={HomePage} />
+            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+            <Route path={ROUTES.ADMIN} component={AdminPage} />
+          </Switch>
+        </ContentWrapper>
+      </FlexWrapper>
+    </Router>
+  </div>
+);
 
-export default withAuthentication(App);
+export default RenderedApp;
