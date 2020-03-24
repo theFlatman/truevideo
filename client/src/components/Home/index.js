@@ -63,11 +63,12 @@ class HomePage extends React.Component {
               </h2>
             </div>
           ) : (
-            <Room
-              roomName={this.state.room}
-              token={this.state.token}
-              handleLogout={this.handleLogout}
-            />
+            <div>
+              <button onClick={this.openVideoChat}>
+                <p>Ohne ()</p>
+              </button>
+              <button onClick={this.openVideoChat()}>mit</button>
+            </div>
           )}
         </HomeWrapper>
       </>
