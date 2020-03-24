@@ -32,18 +32,9 @@ class HomePage extends React.Component {
       });
   }
 
-  handleLogout = event => {
-    this.setState({ token: null });
-  };
-
   openVideoChat = () => {
-    return (
-      <Room
-        roomName={this.state.room}
-        token={this.state.token}
-        handleLogout={this.handleLogout}
-      />
-    );
+    console.log("im inside the function");
+    return <Room roomName={this.state.room} token={this.state.token} />;
   };
 
   render() {
@@ -51,10 +42,6 @@ class HomePage extends React.Component {
       <>
         <HomeWrapper>
           <h1>Home</h1>
-          <button onClick={this.openVideoChat}>
-            <p>Ohne ()</p>
-          </button>
-          <button onClick={this.openVideoChat()}>mit</button>
           {this.state.token === "" ? (
             <div>
               <h2>
@@ -63,12 +50,7 @@ class HomePage extends React.Component {
               </h2>
             </div>
           ) : (
-            <div>
-              <button onClick={this.openVideoChat}>
-                <p>Ohne ()</p>
-              </button>
-              <button onClick={this.openVideoChat()}>mit</button>
-            </div>
+            <button onClick={this.openVideoChat}>VideoChat starten</button>
           )}
         </HomeWrapper>
       </>

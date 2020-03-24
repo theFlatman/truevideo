@@ -52,7 +52,6 @@ const Room = ({ roomName, token }) => {
   return (
     <>
       <div>
-        <button onClick={this.props.handleLogout}>VideoChat beenden</button>
         <div>{remoteParticipants}</div>
         <div>
           {room ? (
