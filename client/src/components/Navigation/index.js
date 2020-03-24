@@ -112,7 +112,6 @@ const StyledHeader = styled.header`
   }
 
   svg {
-    height: 50px;
     width: 200px;
     fill: #c5986a;
   }
@@ -123,31 +122,35 @@ const StyledHeaderNonAuth = styled.header`
   height: 100%;
   background-color: white;
   display: flex;
-  flex-flow: wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-
-  button {
-    align-self: flex-end;
-  }
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 0px 50px 0px 50px;
 
   a {
     text-decoration: none;
     color: #636363;
   }
 
-  overflow: hidden;
-  padding: 0px 50px 0px 50px;
+  button {
+    width: 100px;
+  }
+
+  svg {
+    width: 200px;
+    fill: #c5986a;
+  }
 
   @media (max-width: 576px) {
     padding: 10px 20px 10px 20px;
   }
+`;
 
-  svg {
-    height: 50px;
-    width: 200px;
-    fill: #c5986a;
-  }
+const InvisibleBox = styled.div`
+  display: flex;
+  width: 100px;
 `;
 
 const Menu = ({ open, authUser }) => {
@@ -209,14 +212,19 @@ const NavigationAuth = ({ authUser }) => (
 );
 
 const NavigationNonAuth = () => (
-  <div>
-    <Link to={ROUTES.LANDING}>
-      <Logo />
-    </Link>
-    <button>
-      <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-    </button>
-  </div>
+  <>
+    <InvisibleBox />
+    <div>
+      <Link to={ROUTES.LANDING}>
+        <Logo />
+      </Link>
+    </div>
+    <div>
+      <Link to={ROUTES.SIGN_IN}>
+        <button>Sign In</button>
+      </Link>
+    </div>
+  </>
 );
 
 const mapStateToProps = state => ({

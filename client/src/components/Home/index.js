@@ -1,18 +1,24 @@
 import React from "react";
 import { compose } from "recompose";
 import { connect } from "react-redux";
-import VideoChat from "../VideoChat";
+import styled from "styled-components";
 import Room from "../Room";
 
 import { withFirebase } from "../Firebase";
 import { withAuthorization, withEmailVerification } from "../Session";
 import Messages from "../Messages";
 
+const HomeWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { token: "", room: "", roomOpen: false };
+    this.state = { token: null, room: "", roomOpen: false };
   }
 
   componentDidMount() {
@@ -26,31 +32,38 @@ class HomePage extends React.Component {
       });
   }
 
-  openVideoChat = () => {
-    this.setState({ roomOpen: true });
+  handleLogout = event => {
+    this.setState({ token: null });
   };
 
-  renderVideoChat = () => {
-    if (this.state.token) {
-      return <button onClick={this.openVideoChat}>VideoChat</button>;
-    }
+  openVideoChat = () => {
+    return (
+      <Room
+        roomName={this.state.room}
+        token={this.state.token}
+        handleLogout={this.handleLogout}
+      />
+    );
   };
 
   render() {
     return (
-      <div>
-        <h1>Home Page</h1>
-        {this.renderVideoChat()}
-        <p>The Home Page is accessible by every signed in user.</p>
-        {this.state.roomOpen ? (
-          <Room roomName={this.state.room} token={this.state.token} />
-        ) : (
-          <div>
-            <h2>Video Room not open</h2>
-          </div>
-        )}
-        <Messages />
-      </div>
+      <>
+        <HomeWrapper>
+          <h1>Home</h1>
+
+          {this.state.token === "" ? (
+            <div>
+              <h2>
+                Momentan ist kein Videochat für sie verfügbar. Der Videochat
+                wird verfügbar sobald Marcel ihn gestartet hat.
+              </h2>
+            </div>
+          ) : (
+            <button onClick={this.openVideoChat}>VideoChat öffnen</button>
+          )}
+        </HomeWrapper>
+      </>
     );
   }
 }

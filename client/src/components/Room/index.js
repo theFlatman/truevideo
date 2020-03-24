@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Video from "twilio-video";
 import Participant from "../Participant";
+import styled from "styled-components";
+
+const StyledRemote = styled.div`
+  display: flex;
+  height: 60%;
+  width: auto;
+`;
+
+const StyledLocal = styled.div`
+  display: flex;
+  height: 20%;
+  width: auto;
+`;
 
 const Room = ({ roomName, token }) => {
   const [room, setRoom] = useState(null);
@@ -48,9 +61,10 @@ const Room = ({ roomName, token }) => {
   ));
 
   return (
-    <div className="room">
-      <h2>Room: {roomName}</h2>
-      <div className="local-participant">
+    <div>
+      <button onClick={this.props.handleLogout}>VideoChat beenden</button>
+      <StyledRemote>{remoteParticipants}</StyledRemote>
+      <StyledLocal>
         {room ? (
           <Participant
             key={room.localParticipant.sid}
@@ -59,9 +73,7 @@ const Room = ({ roomName, token }) => {
         ) : (
           ""
         )}
-      </div>
-      <h3>Remote Participants</h3>
-      <div className="remote-participants">{remoteParticipants}</div>
+      </StyledLocal>
     </div>
   );
 };

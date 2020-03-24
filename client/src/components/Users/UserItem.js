@@ -42,7 +42,7 @@ class UserItem extends Component {
     const dataClient = await fetch("/video/token", {
       method: "POST",
       body: JSON.stringify({
-        identity: this.props.user.username.split(" ").join(""),
+        identity: this.props.user.username,
         room: this.props.user.username
       }),
       headers: {
@@ -59,7 +59,7 @@ class UserItem extends Component {
     const dataHost = await fetch("/video/token", {
       method: "POST",
       body: JSON.stringify({
-        identity: this.props.authUser.username.split(" ").join(""),
+        identity: this.props.authUser.username,
         room: this.props.user.username
       }),
       headers: {
@@ -68,7 +68,9 @@ class UserItem extends Component {
     }).then(res => res.json());
 
     this.props.firebase.user(this.props.authUser.uid).set({
-      ...this.props.authUser,
+      email: this.props.authUser.email,
+      username: this.props.authUser.username,
+      roles: this.props.authUser.roles,
       token: dataHost.token,
       roomName: this.props.user.username
     });

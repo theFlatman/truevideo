@@ -32,7 +32,7 @@ const ContentWrapper = styled.div`
   display: flex;
   width: 100vw;
   height: 100%;
-  margin-top: 150px;
+  margin: 100px 30px 100px 30px;
   justify-content: center;
 `;
 
