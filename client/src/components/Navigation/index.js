@@ -150,9 +150,7 @@ const Navigation = ({ authUser }) => {
         <Burger open={open} setOpen={setOpen} />
         <Menu open={open} setOpen={setOpen} authUser={authUser} />
       </div>
-      <Link to={ROUTES.LANDING}>
-        <Logo />
-      </Link>
+      <Link to={ROUTES.LANDING}></Link>
       <SignOutButton />
     </StyledHeader>
   ) : (
