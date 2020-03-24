@@ -1,5 +1,6 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
+import { GlobalStyles } from "../GlobalStyles";
 import styled from "styled-components";
 
 import Navigation from "../Navigation";
@@ -42,6 +43,7 @@ const ContentWrapper = styled.div`
 const RenderedApp = () => (
   <div>
     <Router history={history}>
+      <GlobalStyles />
       <FlexWrapper>
         <NavigationWrapper>
           <Navigation />
