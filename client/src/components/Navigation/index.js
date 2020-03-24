@@ -13,7 +13,7 @@ const StyledMenu = styled.nav`
   background: #c5986a;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
   height: 100vh;
-  width: 250px;
+  width: 300px;
   padding: 2rem;
   position: absolute;
   top: 0;
@@ -59,21 +59,16 @@ const StyledBurger = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 2rem;
-  height: 2rem;
+  width: 30px;
+  height: 30px;
   background: transparent;
   border: none;
-  cursor: pointer;
   padding: 0;
   z-index: 10;
 
-  &:focus {
-    outline: none;
-  }
-
   div {
     display: flex;
-    width: 2rem;
+    width: 30px;
     height: 0.25rem;
     background: #c5986a;
     border-radius: 10px;
@@ -101,13 +96,45 @@ const StyledBurger = styled.button`
 `;
 
 const StyledHeader = styled.header`
-  width: 100vw;
+  width: 100%;
   height: 100%;
   background-color: white;
   display: flex;
   flex-flow: wrap;
   align-items: center;
   justify-content: space-between;
+
+  overflow: hidden;
+  padding: 0px 50px 0px 50px;
+
+  @media (max-width: 576px) {
+    padding: 10px 20px 10px 20px;
+  }
+
+  svg {
+    height: 50px;
+    width: 200px;
+    fill: #c5986a;
+  }
+`;
+
+const StyledHeaderNonAuth = styled.header`
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    align-self: flex-end;
+  }
+
+  a {
+    text-decoration: none;
+    color: #636363;
+  }
 
   overflow: hidden;
   padding: 0px 50px 0px 50px;
@@ -157,9 +184,9 @@ const Navigation = ({ authUser }) => {
       <SignOutButton />
     </StyledHeader>
   ) : (
-    <StyledHeader>
+    <StyledHeaderNonAuth>
       <NavigationNonAuth />
-    </StyledHeader>
+    </StyledHeaderNonAuth>
   );
 };
 

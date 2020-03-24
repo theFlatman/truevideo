@@ -68,7 +68,7 @@ class UserItem extends Component {
     }).then(res => res.json());
 
     this.props.firebase.user(this.props.authUser.uid).set({
-      ...this.props.user,
+      ...this.props.authUser,
       token: dataHost.token,
       roomName: this.props.user.username
     });

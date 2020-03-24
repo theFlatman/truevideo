@@ -15,17 +15,13 @@ import AdminPage from "../Admin";
 import history from "../../history";
 import * as ROUTES from "../../constants/routes";
 
-const FlexWrapper = styled.div`
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  flex-direction: column;
-`;
-
 const NavigationWrapper = styled.div`
-  display: flex;
-  width: 100%;
+  position: sticky;
+  top: 0px;
+  width: 100vw;
   height: 80px;
+  box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.15);
+  z-index: 50;
 
   @media (max-width: 576px) {
     height: auto;
@@ -44,25 +40,21 @@ const RenderedApp = () => (
   <div>
     <Router history={history}>
       <GlobalStyles />
-      <FlexWrapper>
-        <NavigationWrapper>
-          <Navigation />
-        </NavigationWrapper>
-        <ContentWrapper>
-          <Switch>
-            <Route exact path={ROUTES.LANDING} component={LandingPage} />
-            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-            <Route
-              path={ROUTES.PASSWORD_FORGET}
-              component={PasswordForgetPage}
-            />
-            <Route path={ROUTES.HOME} component={HomePage} />
-            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-            <Route path={ROUTES.ADMIN} component={AdminPage} />
-          </Switch>
-        </ContentWrapper>
-      </FlexWrapper>
+
+      <NavigationWrapper>
+        <Navigation />
+      </NavigationWrapper>
+      <ContentWrapper>
+        <Switch>
+          <Route exact path={ROUTES.LANDING} component={LandingPage} />
+          <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+          <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+          <Route path={ROUTES.HOME} component={HomePage} />
+          <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+          <Route path={ROUTES.ADMIN} component={AdminPage} />
+        </Switch>
+      </ContentWrapper>
     </Router>
   </div>
 );

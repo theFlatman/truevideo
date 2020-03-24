@@ -11,6 +11,9 @@ export const GlobalStyles = createGlobalStyle`
     color: #c5986a;
     font-family: Montserrat, sans-serif;
     overflow-x:hidden;
+    height: 100%;
+    width: 100vw;
+    margin: 0px;
   }
 
   button {
