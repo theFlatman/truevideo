@@ -4,8 +4,10 @@ const bodyParser = require("body-parser");
 const pino = require("express-pino-logger")();
 const path = require("path");
 const { videoToken } = require("./tokens");
+const sslRedirect = require("heroku-ssl-redirect");
 
 const app = express();
+app.use(sslRedirect());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);

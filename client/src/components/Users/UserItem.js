@@ -1,8 +1,10 @@
-import React, { Component, useCallback } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "recompose";
-
+import { withRouter } from "react-router-dom";
 import { withFirebase } from "../Firebase";
+
+import * as ROUTES from "../../constants/routes";
 
 class UserItem extends Component {
   constructor(props) {
@@ -74,6 +76,8 @@ class UserItem extends Component {
       token: dataHost.token,
       roomName: this.props.user.username
     });
+
+    this.props.history.push(ROUTES.HOME);
   };
 
   render() {
@@ -121,6 +125,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default compose(
+  withRouter,
   withFirebase,
   connect(mapStateToProps, mapDispatchToProps)
 )(UserItem);
