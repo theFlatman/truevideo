@@ -17,7 +17,9 @@ const Room = ({ roomName, token }) => {
       );
     };
 
-    console.log("inside useEffect");
+    console.log(
+      "inside useEffect before video connect token:" + token + "room:" + room
+    );
 
     Video.connect(token, {
       name: roomName
@@ -27,6 +29,10 @@ const Room = ({ roomName, token }) => {
       room.on("participantDisconnected", participantDisconnected);
       room.participants.forEach(participantConnected);
     });
+
+    console.log(
+      "inside useEffect after video connect token:" + token + "room:" + room
+    );
 
     return () => {
       setRoom(currentRoom => {
@@ -52,7 +58,6 @@ const Room = ({ roomName, token }) => {
   return (
     <>
       <div className="room">
-        <div className="remote-participants">{remoteParticipants}</div>
         <div className="local-participant">
           {room ? (
             <Participant
@@ -63,6 +68,7 @@ const Room = ({ roomName, token }) => {
             ""
           )}
         </div>
+        <div className="remote-participants">{remoteParticipants}</div>
       </div>
     </>
   );

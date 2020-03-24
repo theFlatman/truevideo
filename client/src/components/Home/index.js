@@ -18,7 +18,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { token: null, room: "", roomOpen: false };
+    this.state = { token: "", room: "", roomOpen: false };
   }
 
   componentDidMount() {
@@ -30,6 +30,7 @@ class HomePage extends React.Component {
           room: snapshot.val().roomName
         });
       });
+    console.log(this.state.token);
   }
 
   openVideoChat = () => {
