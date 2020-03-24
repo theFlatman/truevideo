@@ -108,7 +108,7 @@ const StyledHeader = styled.header`
   flex-flow: wrap;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0px -10px 20px black;
+
   overflow: hidden;
   padding: 0px 50px 0px 50px;
 

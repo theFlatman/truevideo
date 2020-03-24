@@ -19,13 +19,11 @@ const FlexWrapper = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
+  flex-direction: column;
 `;
 
 const NavigationWrapper = styled.div`
   display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 80px;
 
