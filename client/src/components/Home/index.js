@@ -51,7 +51,7 @@ class HomePage extends React.Component {
               </h2>
             </div>
           ) : (
-            <button onClick={this.openVideoChat}>VideoChat starten</button>
+            <Room roomName={this.state.room} token={this.state.token} />
           )}
         </HomeWrapper>
       </>
