@@ -51,7 +51,10 @@ class HomePage extends React.Component {
       <>
         <HomeWrapper>
           <h1>Home</h1>
-
+          <button onClick={this.openVideoChat}>
+            <p>Ohne ()</p>
+          </button>
+          <button onClick={this.openVideoChat()}>mit</button>
           {this.state.token === "" ? (
             <div>
               <h2>
@@ -60,7 +63,11 @@ class HomePage extends React.Component {
               </h2>
             </div>
           ) : (
-            <button onClick={this.openVideoChat}>VideoChat öffnen</button>
+            <Room
+              roomName={this.state.room}
+              token={this.state.token}
+              handleLogout={this.handleLogout}
+            />
           )}
         </HomeWrapper>
       </>

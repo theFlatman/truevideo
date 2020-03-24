@@ -17,6 +17,8 @@ const Room = ({ roomName, token }) => {
       );
     };
 
+    console.log("inside useEffect");
+
     Video.connect(token, {
       name: roomName
     }).then(room => {
