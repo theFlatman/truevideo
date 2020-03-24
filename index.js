@@ -1,4 +1,4 @@
-const config = require("./config");
+const config = require("./configDev");
 const express = require("express");
 const bodyParser = require("body-parser");
 const pino = require("express-pino-logger")();
@@ -26,6 +26,7 @@ app.get("/video/token", (req, res) => {
   const token = videoToken(identity, room, config);
   sendTokenResponse(token, res);
 });
+
 app.post("/video/token", (req, res) => {
   const identity = req.body.identity;
   const room = req.body.room;
