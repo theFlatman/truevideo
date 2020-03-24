@@ -28,7 +28,11 @@ const NavigationWrapper = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 70px;
+  height: 80px;
+
+  @media (max-width: 576px) {
+    height: auto;
+  }
 `;
 
 const ContentWrapper = styled.div`

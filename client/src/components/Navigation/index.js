@@ -10,12 +10,10 @@ import * as ROLES from "../../constants/roles";
 
 const StyledMenu = styled.nav`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: #effffa;
+  background: #c5986a;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
   height: 100vh;
-  text-align: left;
+  width: 250px;
   padding: 2rem;
   position: absolute;
   top: 0;
@@ -25,11 +23,21 @@ const StyledMenu = styled.nav`
   @media (max-width: 576px) {
     width: 100%;
   }
+  ul {
+    display: flex;
+    flex-flow: wrap;
+    margin-top: 50px;
+    list-style-type: none;
+    padding: 10px;
+  }
+
+  li {
+    width: 100%;
+  }
 
   a {
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-transform: uppercase;
-    padding: 2rem 0;
     font-weight: bold;
     letter-spacing: 0.5rem;
     color: #0d0c1d;
@@ -37,20 +45,17 @@ const StyledMenu = styled.nav`
     transition: color 0.3s linear;
 
     @media (max-width: 576px) {
-      font-size: 1.5rem;
+      font-size: 1rem;
       text-align: center;
     }
 
     &:hover {
-      color: #343078;
+      color: white;
     }
   }
 `;
 
 const StyledBurger = styled.button`
-  position: absolute;
-  top: 5%;
-  left: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -67,6 +72,7 @@ const StyledBurger = styled.button`
   }
 
   div {
+    display: flex;
     width: 2rem;
     height: 0.25rem;
     background: #c5986a;
@@ -74,17 +80,21 @@ const StyledBurger = styled.button`
     transition: all 0.3s linear;
     position: relative;
     transform-origin: 1px;
+    z-index: 20;
 
     :first-child {
+      background: ${({ open }) => (open ? "white" : "#c5986a")};
       transform: ${({ open }) => (open ? "rotate(45deg)" : "rotate(0)")};
     }
 
     :nth-child(2) {
       opacity: ${({ open }) => (open ? "0" : "1")};
+      background: ${({ open }) => (open ? "white" : "#c5986a")};
       transform: ${({ open }) => (open ? "translateX(20px)" : "translateX(0)")};
     }
 
     :nth-child(3) {
+      background: ${({ open }) => (open ? "white" : "#c5986a")};
       transform: ${({ open }) => (open ? "rotate(-45deg)" : "rotate(0)")};
     }
   }
@@ -95,21 +105,15 @@ const StyledHeader = styled.header`
   height: 100%;
   background-color: white;
   display: flex;
+  flex-flow: wrap;
   align-items: center;
-  justify-content: center;
-  margin: 0px;
+  justify-content: space-between;
   box-shadow: 0px -10px 20px black;
   overflow: hidden;
+  padding: 0px 50px 0px 50px;
 
-  ul {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
-    li {
-      margin: 0 10px 0 10px;
-    }
+  @media (max-width: 576px) {
+    padding: 10px 20px 10px 20px;
   }
 
   svg {
@@ -150,7 +154,9 @@ const Navigation = ({ authUser }) => {
         <Burger open={open} setOpen={setOpen} />
         <Menu open={open} setOpen={setOpen} authUser={authUser} />
       </div>
-      <Link to={ROUTES.LANDING}></Link>
+      <Link to={ROUTES.LANDING}>
+        <Logo />
+      </Link>
       <SignOutButton />
     </StyledHeader>
   ) : (
