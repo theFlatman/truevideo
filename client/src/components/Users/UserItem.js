@@ -42,7 +42,7 @@ class UserItem extends Component {
     const dataClient = await fetch("/video/token", {
       method: "POST",
       body: JSON.stringify({
-        identity: this.props.user.username,
+        identity: this.props.user.username.split(" ").join(""),
         room: this.props.user.username
       }),
       headers: {
@@ -59,7 +59,7 @@ class UserItem extends Component {
     const dataHost = await fetch("/video/token", {
       method: "POST",
       body: JSON.stringify({
-        identity: this.props.authUser.username,
+        identity: this.props.authUser.username.split(" ").join(""),
         room: this.props.user.username
       }),
       headers: {

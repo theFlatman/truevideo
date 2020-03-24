@@ -51,9 +51,9 @@ const Room = ({ roomName, token }) => {
 
   return (
     <>
-      <div>
-        <div>{remoteParticipants}</div>
-        <div>
+      <div className="room">
+        <div className="remote-participants">{remoteParticipants}</div>
+        <div className="local-participant">
           {room ? (
             <Participant
               key={room.localParticipant.sid}
