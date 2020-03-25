@@ -80,7 +80,7 @@ class Firebase {
               ...dbUser
             };
 
-            removePreviousVideoChatSession(authUser.uid);
+            this.removePreviousVideoChatSession(authUser.uid);
 
             next(authUser);
           });
