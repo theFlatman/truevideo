@@ -7,11 +7,11 @@ const { videoToken } = require("./tokens");
 const sslRedirect = require("heroku-ssl-redirect");
 
 const app = express();
-app.use(sslRedirect());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);
 app.use(express.static(path.join(__dirname, "client/build")));
+app.use(sslRedirect());
 
 const sendTokenResponse = (token, res) => {
   res.set("Content-Type", "application/json");

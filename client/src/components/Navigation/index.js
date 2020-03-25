@@ -221,7 +221,7 @@ const NavigationNonAuth = () => (
     </div>
     <div>
       <Link to={ROUTES.SIGN_IN}>
-        <button>Sign In</button>
+        <button>Anmelden</button>
       </Link>
     </div>
   </>

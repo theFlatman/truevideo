@@ -30,11 +30,9 @@ class HomePage extends React.Component {
           room: snapshot.val().roomName
         });
       });
-    console.log(this.state.token);
   }
 
   openVideoChat = () => {
-    console.log("im inside the function");
     return <Room roomName={this.state.room} token={this.state.token} />;
   };
 

@@ -6,7 +6,7 @@ import * as ROUTES from "../../constants/routes";
 
 const SignUpPage = () => (
   <div>
-    <h1>SignUp</h1>
+    <h1>Konto erstellen</h1>
     <SignUpForm />
   </div>
 );
@@ -22,11 +22,7 @@ const INITIAL_STATE = {
 const ERROR_CODE_ACCOUNT_EXISTS = "auth/email-already-in-use";
 
 const ERROR_MSG_ACCOUNT_EXISTS = `
-  An account with this E-Mail address already exists.
-  Try to login with this account instead. If you think the
-  account is already used from one of the social logins, try
-  to sign in with one of them. Afterward, associate your accounts
-  on your personal account page.
+  Es existiert bereits ein Account mit dieser Email Adresse. Versuchen Sie sich anzumelden.
 `;
 
 class SignUpFormBase extends Component {
@@ -86,31 +82,31 @@ class SignUpFormBase extends Component {
           value={username}
           onChange={this.onChange}
           type="text"
-          placeholder="Full Name"
+          placeholder="Vorname Nachame"
         />
         <input
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
-          placeholder="Email Address"
+          placeholder="Email Adresse"
         />
         <input
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
           type="password"
-          placeholder="Password"
+          placeholder="Passwort"
         />
         <input
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
           type="password"
-          placeholder="Confirm Password"
+          placeholder="Passwort bestätigen"
         />
         <button disabled={isInvalid} type="submit">
-          Sign Up
+          Account erstellen
         </button>
 
         {error && <p>{error.message}</p>}
@@ -121,7 +117,7 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => (
   <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+    Noch keinen Account? <Link to={ROUTES.SIGN_UP}>Account erstellen</Link>
   </p>
 );
 

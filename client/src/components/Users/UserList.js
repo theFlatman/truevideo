@@ -37,14 +37,11 @@ class UserList extends Component {
 
     return (
       <div>
-        <h2>Users</h2>
+        <h2>Kunden</h2>
         {loading && <div>Loading ...</div>}
         <ul>
           {users.map(user => (
             <li key={user.uid}>
-              <span>
-                <strong>ID:</strong> {user.uid}
-              </span>
               <span>
                 <strong>E-Mail:</strong> {user.email}
               </span>

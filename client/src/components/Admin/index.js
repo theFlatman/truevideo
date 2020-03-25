@@ -12,7 +12,7 @@ const AdminPage = () => {
   return (
     <div>
       <h1>Admin</h1>
-      <p>The Admin Page is accessible by every signed in admin user.</p>
+      <p></p>
 
       <Switch>
         <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
