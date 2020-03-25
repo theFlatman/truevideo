@@ -68,6 +68,8 @@ class Firebase {
               email: authUser.email,
               emailVerified: authUser.emailVerified,
               providerData: authUser.providerData,
+              roomName: "",
+              token: "",
               ...dbUser
             };
 
