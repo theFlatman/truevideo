@@ -47,13 +47,6 @@ class Firebase {
 
   doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
-  removePreviousVideoChatSession = authUserUID => {
-    this.props.firebase.user(authUserUID).update({
-      token: "",
-      roomName: ""
-    });
-  };
-
   // *** Merge Auth and DB User API *** //
 
   onAuthUserListener = (next, fallback) =>
@@ -79,8 +72,6 @@ class Firebase {
               token: "",
               ...dbUser
             };
-
-            this.removePreviousVideoChatSession(authUser.uid);
 
             next(authUser);
           });
