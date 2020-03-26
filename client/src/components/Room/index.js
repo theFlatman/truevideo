@@ -62,6 +62,7 @@ const Room = ({ roomName, token }) => {
   ));
 
   const handleFullscreen = elem => {
+    console.log("fullscreen button triggered");
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
     } else if (elem.mozRequestFullScreen) {

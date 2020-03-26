@@ -16,15 +16,13 @@ const VideoWrapperRemote = styled.div`
 
 const VideoWrapperLocal = styled.div`
   display: flex;
-
-  video {
-    position: relative;
-    bottom: 100px;
-    right: 100px;
-    width: auto;
-    height: 10%;
-    z-index: 11;
-  }
+  border: 1px solid #c5986a;
+  position: relative;
+  bottom: 100px;
+  right: 100px;
+  width: auto;
+  height: 10%;
+  z-index: 11;
 `;
 
 const FullscreenButton = styled.button`
@@ -105,11 +103,11 @@ const Participant = ({ participant, handleFullscreen, local }) => {
       <h3>{participant.identity}</h3>
       {local ? (
         <VideoWrapperLocal>
-          <video ref={videoRef} controls autoPlay={true} />
+          <video ref={videoRef} autoPlay={true} />
         </VideoWrapperLocal>
       ) : (
         <VideoWrapperRemote>
-          <video ref={videoRef} controls autoPlay={true} />
+          <video ref={videoRef} autoPlay={true} />
           <FullscreenButton onClick={handleFullscreen} />
         </VideoWrapperRemote>
       )}
