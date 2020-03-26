@@ -59,7 +59,8 @@ class HomePage extends React.Component {
 const condition = authUser => !!authUser;
 
 const mapStateToProps = state => ({
-  authUser: state.sessionState.authUser
+  authUser: state.sessionState.authUser,
+  rooms: state.roomState
 });
 
 export default compose(
