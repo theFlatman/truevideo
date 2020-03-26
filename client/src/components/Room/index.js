@@ -4,6 +4,8 @@ import Participant from "../Participant";
 import styled from "styled-components";
 
 const VideoWrapper = styled.div`
+  position: absolute;
+  top: 80px;
   display: flex;
   justify-content: center;
   width: 100vw;
@@ -14,8 +16,8 @@ const VideoWrapperRemote = styled.div`
   display: flex;
 
   video {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     z-index: 10;
   }
 `;
