@@ -19,18 +19,19 @@ const StyledLocal = styled.div`
 
 const StyledRemote = styled.div`
   display: flex;
-  position: relative;
-  height: ${({ fullscreen }) => (fullscreen ? "100%" : "40%")};
-  width: ${({ fullscreen }) => (fullscreen ? "100%" : "40%")};
+  height: ${({ fullscreen }) => (fullscreen ? "100%" : "50%")};
+  width: ${({ fullscreen }) => (fullscreen ? "100%" : "50%")};
 `;
 
 const FullScreen = styled.button`
   display: flex;
-  position: absolute;
-  bottom: 50px;
-  right: 50px;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  bottom: 30px;
+  right: 30px;
   background-color: transparent;
-  border: 5px solid #c5986a;
+  border: 4px solid #c5986a;
   border-radius: 3px;
 `;
 
