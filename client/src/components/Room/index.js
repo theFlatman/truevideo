@@ -57,6 +57,7 @@ const Room = ({ roomName, token }) => {
       key={participant.sid}
       participant={participant}
       handleFullscreen={handleFullscreen}
+      local={false}
     />
   ));
 
@@ -82,6 +83,8 @@ const Room = ({ roomName, token }) => {
           <Participant
             key={room.localParticipant.sid}
             participant={room.localParticipant}
+            handleFullscreen={handleFullscreen}
+            local={true}
           />
         ) : (
           ""

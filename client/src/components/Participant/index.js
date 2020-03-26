@@ -21,8 +21,8 @@ const VideoWrapperLocal = styled.div`
     position: relative;
     bottom: 100px;
     right: 100px;
-    width: 300px;
-    height: auto;
+    width: auto;
+    height: 10%;
     z-index: 11;
   }
 `;
@@ -35,12 +35,12 @@ const FullscreenButton = styled.button`
   height: 15px;
   background-color: transparent;
   border: 5px solid #c5986a;
+  z-index: 11;
 `;
 
-const Participant = ({ participant, handleFullscreen }) => {
+const Participant = ({ participant, handleFullscreen, local }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
-  const [fullscreen, setFullscreen] = useState(false);
 
   const videoRef = useRef();
   const audioRef = useRef();
@@ -103,7 +103,7 @@ const Participant = ({ participant, handleFullscreen }) => {
   return (
     <div className="participant">
       <h3>{participant.identity}</h3>
-      {handleFullscreen === undefined ? (
+      {local ? (
         <VideoWrapperLocal>
           <video ref={videoRef} controls autoPlay={true} />
         </VideoWrapperLocal>
