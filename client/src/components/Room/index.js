@@ -1,10 +1,43 @@
 import React, { useState, useEffect } from "react";
 import Video from "twilio-video";
 import Participant from "../Participant";
+import styled from "styled-components";
+
+const VideoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledLocal = styled.div`
+  display: flex;
+  height: 20%;
+  width: 20%;
+`;
+
+const StyledRemote = styled.div`
+  display: flex;
+  position: relative;
+  height: ${fullscreen ? "100%" : "40%"};
+  width: ${fullscreen ? "100%" : "40%"};
+`;
+
+const FullScreen = styled.button`
+  display: flex;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  background-color: transparent;
+  border: 5px solid #c5986a;
+  border-radius: 3px;
+`;
 
 const Room = ({ roomName, token }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
+  const [fullscreen, setFullscreen] = useState([false]);
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -47,10 +80,14 @@ const Room = ({ roomName, token }) => {
     <Participant key={participant.sid} participant={participant} />
   ));
 
+  const handleFullscreen = () => {
+    setFullscreen(!fullscreen);
+  };
+
   return (
     <>
-      <div className="room">
-        <div className="local-participant">
+      <VideoWrapper>
+        <StyledLocal>
           {room ? (
             <Participant
               key={room.localParticipant.sid}
@@ -59,9 +96,12 @@ const Room = ({ roomName, token }) => {
           ) : (
             ""
           )}
-        </div>
-        <div className="remote-participants">{remoteParticipants}</div>
-      </div>
+        </StyledLocal>
+        <StyledRemote>
+          {remoteParticipants}
+          <FullScreen onClick={handleFullscreen} />
+        </StyledRemote>
+      </VideoWrapper>
     </>
   );
 };
