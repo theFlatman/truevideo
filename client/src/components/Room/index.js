@@ -3,9 +3,19 @@ import Video from "twilio-video";
 import Participant from "../Participant";
 import styled from "styled-components";
 
-const VideoWrapper = styled.div``;
+const VideoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+`;
 
-const StyledLocal = styled.div``;
+const StyledLocal = styled.div`
+  display: flex;
+  height: 20%;
+  width: 20%;
+`;
 
 const StyledRemote = styled.div``;
 
