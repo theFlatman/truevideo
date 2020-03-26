@@ -25,11 +25,8 @@ const StyledRemote = styled.div`
 
 const FullScreen = styled.button`
   display: flex;
-  position: relative;
-  width: 20px;
+  width: 40px;
   height: 20px;
-  bottom: 30px;
-  right: 30px;
   background-color: transparent;
   border: 4px solid #c5986a;
   border-radius: 3px;
