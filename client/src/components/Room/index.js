@@ -74,6 +74,16 @@ const Room = ({ roomName, token }) => {
   return (
     <>
       <VideoWrapper>
+        <StyledLocal>
+          {room ? (
+            <Participant
+              key={room.localParticipant.sid}
+              participant={room.localParticipant}
+            />
+          ) : (
+            ""
+          )}
+        </StyledLocal>
         <StyledRemote>{remoteParticipants}</StyledRemote>
       </VideoWrapper>
     </>
