@@ -4,11 +4,45 @@ import Participant from "../Participant";
 import styled from "styled-components";
 
 const VideoWrapper = styled.div`
+  position: relativ;
+  top: 0px;
+  width: 100vw;
+  height: 100vh;
+`;
+
+const VideoWrapperRemote = styled.div`
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: center;
+
+  video {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+`;
+
+const VideoWrapperLocal = styled.div`
+  display: flex;
+  border: 1px solid #c5986a;
+  position: relative;
+  bottom: 100px;
+  right: 100px;
+  width: auto;
+  height: 10%;
+  z-index: 11;
+`;
+
+const FullscreenButton = styled.button`
+  position: relative;
+  bottom: 20px;
+  right: 20px;
+  width: 30px;
+  height: 15px;
+  background-color: transparent;
+  border: 5px solid #c5986a;
+  z-index: 12;
 `;
 
 const Room = ({ roomName, token }) => {
@@ -56,7 +90,6 @@ const Room = ({ roomName, token }) => {
     <Participant
       key={participant.sid}
       participant={participant}
-      handleFullscreen={handleFullscreen}
       local={false}
     />
   ));
@@ -81,17 +114,17 @@ const Room = ({ roomName, token }) => {
     <>
       <VideoWrapper>
         {room ? (
-          <Participant
-            key={room.localParticipant.sid}
-            participant={room.localParticipant}
-            handleFullscreen={handleFullscreen}
-            local={true}
-          />
+          <VideoWrapperLocal>
+            <Participant
+              key={room.localParticipant.sid}
+              participant={room.localParticipant}
+            />
+            <FullscreenButton onClick={handleFullscreen} />
+          </VideoWrapperLocal>
         ) : (
           ""
         )}
-
-        {remoteParticipants}
+        <VideoWrapperRemote>{remoteParticipants}</VideoWrapperRemote>
       </VideoWrapper>
     </>
   );

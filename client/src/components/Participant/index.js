@@ -1,42 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
 
-const VideoWrapperRemote = styled.div`
-  display: flex;
-
-  video {
-    position: absolute;
-    top: 80px;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 10;
-  }
-`;
-
-const VideoWrapperLocal = styled.div`
-  display: flex;
-  border: 1px solid #c5986a;
-  position: relative;
-  bottom: 100px;
-  right: 100px;
-  width: auto;
-  height: 10%;
-  z-index: 11;
-`;
-
-const FullscreenButton = styled.button`
-  position: relative;
-  bottom: 20px;
-  right: 20px;
-  width: 30px;
-  height: 15px;
-  background-color: transparent;
-  border: 5px solid #c5986a;
-  z-index: 11;
-`;
-
-const Participant = ({ participant, handleFullscreen, local }) => {
+const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
 
@@ -99,20 +63,10 @@ const Participant = ({ participant, handleFullscreen, local }) => {
   }, [audioTracks]);
 
   return (
-    <div className="participant">
-      <h3>{participant.identity}</h3>
-      {local ? (
-        <VideoWrapperLocal>
-          <video ref={videoRef} autoPlay={true} />
-        </VideoWrapperLocal>
-      ) : (
-        <VideoWrapperRemote>
-          <video ref={videoRef} autoPlay={true} />
-          <FullscreenButton onClick={handleFullscreen} />
-        </VideoWrapperRemote>
-      )}
+    <>
+      <video ref={videoRef} autoPlay={true} />
       <audio ref={audioRef} autoPlay={true} muted={false} />
-    </div>
+    </>
   );
 };
 
