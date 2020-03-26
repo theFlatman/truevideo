@@ -4,8 +4,8 @@ import Participant from "../Participant";
 import styled from "styled-components";
 
 const VideoWrapper = styled.div`
-  position: relativ;
-  top: 0px;
+  display: flex;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
 `;
@@ -14,9 +14,6 @@ const VideoWrapperRemote = styled.div`
   display: flex;
 
   video {
-    position: relative;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     z-index: 10;
@@ -113,17 +110,6 @@ const Room = ({ roomName, token }) => {
   return (
     <>
       <VideoWrapper>
-        {room ? (
-          <VideoWrapperLocal>
-            <Participant
-              key={room.localParticipant.sid}
-              participant={room.localParticipant}
-            />
-            <FullscreenButton onClick={handleFullscreen} />
-          </VideoWrapperLocal>
-        ) : (
-          ""
-        )}
         <VideoWrapperRemote>{remoteParticipants}</VideoWrapperRemote>
       </VideoWrapper>
     </>
