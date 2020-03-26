@@ -3,34 +3,13 @@ import Video from "twilio-video";
 import Participant from "../Participant";
 import styled from "styled-components";
 
-const VideoWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: center;
-`;
+const VideoWrapper = styled.div``;
 
-const StyledLocal = styled.div`
-  display: flex;
-  height: 20%;
-  width: 20%;
-`;
+const StyledLocal = styled.div``;
 
-const StyledRemote = styled.div`
-  display: flex;
-  height: ${({ fullscreen }) => (fullscreen ? "100%" : "50%")};
-  width: ${({ fullscreen }) => (fullscreen ? "100%" : "50%")};
-`;
+const StyledRemote = styled.div``;
 
-const FullScreen = styled.button`
-  display: flex;
-  width: 40px;
-  height: 20px;
-  background-color: transparent;
-  border: 4px solid #c5986a;
-  border-radius: 3px;
-`;
+const FullScreen = styled.button``;
 
 const Room = ({ roomName, token }) => {
   const [room, setRoom] = useState(null);
@@ -95,10 +74,7 @@ const Room = ({ roomName, token }) => {
             ""
           )}
         </StyledLocal>
-        <StyledRemote>
-          {remoteParticipants}
-          <FullScreen onClick={handleFullscreen} />
-        </StyledRemote>
+        <StyledRemote>{remoteParticipants}</StyledRemote>
       </VideoWrapper>
     </>
   );
