@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
-const VideoWrapper = styled.div`
+const VideoWrapperRemote = styled.div`
   display: flex;
 
   video {
-    position: ${fullscreen => (fullscreen ? "fixed" : "static")};
+    position: absolute;
     top: 0;
     left: 0;
-    width: ${fullscreen => (fullscreen ? "100vw" : "50vw")};
-    height: ${fullscreen => (fullscreen ? "100vh" : "50vh")};
-    z-index: ${fullscreen => (fullscreen ? "999" : "0")};
+    width: 100%;
+    height: 100%;
+    z-index: 10;
   }
 `;
 
@@ -21,6 +21,7 @@ const Fullscreen = styled.button`
   background-color: transparent;
   border: 4px solid #c5986a;
   border-radius: 3px;
+  z-index: ${fullscreen => (fullscreen ? "999" : "0")};
 `;
 
 const Participant = ({ participant, localRemote }) => {
@@ -93,8 +94,9 @@ const Participant = ({ participant, localRemote }) => {
   return (
     <div className="participant">
       <h3>{participant.identity}</h3>
-      <video ref={videoRef} autoPlay={true} />
-      <Fullscreen onClick={handleFullscreen} />
+      <VideoWrapperRemote>
+        <video ref={videoRef} autoPlay={true} />
+      </VideoWrapperRemote>
       <audio ref={audioRef} autoPlay={true} muted={false} />
     </div>
   );

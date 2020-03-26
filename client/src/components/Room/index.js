@@ -24,7 +24,7 @@ const FullScreen = styled.button``;
 const Room = ({ roomName, token }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
-  const [fullscreen, setFullscreen] = useState(false);
+  const [fullscreen, setFullscreen] = useState();
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -74,16 +74,6 @@ const Room = ({ roomName, token }) => {
   return (
     <>
       <VideoWrapper>
-        <StyledLocal>
-          {room ? (
-            <Participant
-              key={room.localParticipant.sid}
-              participant={room.localParticipant}
-            />
-          ) : (
-            ""
-          )}
-        </StyledLocal>
         <StyledRemote>{remoteParticipants}</StyledRemote>
       </VideoWrapper>
     </>
