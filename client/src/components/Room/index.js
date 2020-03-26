@@ -20,8 +20,8 @@ const StyledLocal = styled.div`
 const StyledRemote = styled.div`
   display: flex;
   position: relative;
-  height: ${fullscreen ? "100%" : "40%"};
-  width: ${fullscreen ? "100%" : "40%"};
+  height: ${({ fullscreen }) => (fullscreen ? "100%" : "40%")};
+  width: ${({ fullscreen }) => (fullscreen ? "100%" : "40%")};
 `;
 
 const FullScreen = styled.button`
@@ -37,7 +37,7 @@ const FullScreen = styled.button`
 const Room = ({ roomName, token }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
-  const [fullscreen, setFullscreen] = useState([false]);
+  const [fullscreen, setFullscreen] = useState(false);
 
   useEffect(() => {
     const participantConnected = participant => {
