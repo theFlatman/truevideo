@@ -100,10 +100,6 @@ const Participant = ({ participant, handleFullscreen }) => {
     }
   }, [audioTracks]);
 
-  const handleFullscreen = () => {
-    setFullscreen(!fullscreen);
-  };
-
   return (
     <div className="participant">
       <h3>{participant.identity}</h3>

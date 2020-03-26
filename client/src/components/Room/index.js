@@ -11,16 +11,6 @@ const VideoWrapper = styled.div`
   justify-content: center;
 `;
 
-const StyledLocal = styled.div`
-  display: flex;
-  height: 20%;
-  width: 20%;
-`;
-
-const StyledRemote = styled.div``;
-
-const FullScreen = styled.button``;
-
 const Room = ({ roomName, token }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
@@ -88,17 +78,16 @@ const Room = ({ roomName, token }) => {
   return (
     <>
       <VideoWrapper>
-        <StyledLocal>
-          {room ? (
-            <Participant
-              key={room.localParticipant.sid}
-              participant={room.localParticipant}
-            />
-          ) : (
-            ""
-          )}
-        </StyledLocal>
-        <StyledRemote>{remoteParticipants}</StyledRemote>
+        {room ? (
+          <Participant
+            key={room.localParticipant.sid}
+            participant={room.localParticipant}
+          />
+        ) : (
+          ""
+        )}
+
+        {remoteParticipants}
       </VideoWrapper>
     </>
   );
