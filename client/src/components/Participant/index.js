@@ -1,8 +1,32 @@
 import React, { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
 
-const Participant = ({ participant }) => {
+const VideoWrapper = styled.div`
+  display: flex;
+
+  video {
+    position: ${fullscreen => (fullscreen ? "fixed" : "static")};
+    top: 0;
+    left: 0;
+    width: ${fullscreen => (fullscreen ? "100vw" : "50vw")};
+    height: ${fullscreen => (fullscreen ? "100vh" : "50vh")};
+    z-index: ${fullscreen => (fullscreen ? "999" : "0")};
+  }
+`;
+
+const Fullscreen = styled.button`
+  display: flex;
+  width: 40px;
+  height: 20px;
+  background-color: transparent;
+  border: 4px solid #c5986a;
+  border-radius: 3px;
+`;
+
+const Participant = ({ participant, localRemote }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
+  const [fullscreen, setFullscreen] = useState(false);
 
   const videoRef = useRef();
   const audioRef = useRef();
@@ -62,10 +86,15 @@ const Participant = ({ participant }) => {
     }
   }, [audioTracks]);
 
+  const handleFullscreen = () => {
+    setFullscreen(!fullscreen);
+  };
+
   return (
     <div className="participant">
       <h3>{participant.identity}</h3>
       <video ref={videoRef} autoPlay={true} />
+      <Fullscreen onClick={handleFullscreen} />
       <audio ref={audioRef} autoPlay={true} muted={false} />
     </div>
   );
