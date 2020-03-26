@@ -8,23 +8,36 @@ const VideoWrapperRemote = styled.div`
     position: absolute;
     top: 80px;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     z-index: 10;
   }
 `;
 
-const Fullscreen = styled.button`
+const VideoWrapperLocal = styled.div`
   display: flex;
-  width: 40px;
-  height: 20px;
-  background-color: transparent;
-  border: 4px solid #c5986a;
-  border-radius: 3px;
-  z-index: ${fullscreen => (fullscreen ? "999" : "0")};
+
+  video {
+    position: relative;
+    bottom: 100px;
+    right: 100px;
+    width: 300px;
+    height: auto;
+    z-index: 11;
+  }
 `;
 
-const Participant = ({ participant, localRemote }) => {
+const FullscreenButton = styled.button`
+  position: relative;
+  bottom: 20px;
+  right: 20px;
+  width: 30px;
+  height: 15px;
+  background-color: transparent;
+  border: 5px solid #c5986a;
+`;
+
+const Participant = ({ participant, handleFullscreen }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
   const [fullscreen, setFullscreen] = useState(false);
@@ -94,9 +107,16 @@ const Participant = ({ participant, localRemote }) => {
   return (
     <div className="participant">
       <h3>{participant.identity}</h3>
-      <VideoWrapperRemote>
-        <video ref={videoRef} autoPlay={true} />
-      </VideoWrapperRemote>
+      {handleFullscreen === undefined ? (
+        <VideoWrapperLocal>
+          <video ref={videoRef} controls autoPlay={true} />
+        </VideoWrapperLocal>
+      ) : (
+        <VideoWrapperRemote>
+          <video ref={videoRef} controls autoPlay={true} />
+          <FullscreenButton onClick={handleFullscreen} />
+        </VideoWrapperRemote>
+      )}
       <audio ref={audioRef} autoPlay={true} muted={false} />
     </div>
   );

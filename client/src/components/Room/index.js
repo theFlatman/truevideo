@@ -24,7 +24,6 @@ const FullScreen = styled.button``;
 const Room = ({ roomName, token }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
-  const [fullscreen, setFullscreen] = useState();
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -64,11 +63,26 @@ const Room = ({ roomName, token }) => {
   }, [roomName, token]);
 
   const remoteParticipants = participants.map(participant => (
-    <Participant key={participant.sid} participant={participant} />
+    <Participant
+      key={participant.sid}
+      participant={participant}
+      handleFullscreen={handleFullscreen}
+    />
   ));
 
-  const handleFullscreen = () => {
-    setFullscreen(!fullscreen);
+  const handleFullscreen = elem => {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      /* Firefox */
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+      /* Chrome, Safari & Opera */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      /* IE/Edge */
+      elem.msRequestFullscreen();
+    }
   };
 
   return (
