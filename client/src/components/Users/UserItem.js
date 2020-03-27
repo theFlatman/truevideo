@@ -55,7 +55,8 @@ class UserItem extends Component {
     this.props.firebase.user(this.props.match.params.id).set({
       ...this.props.user,
       token: dataClient.token,
-      roomName: this.props.user.username
+      roomName: this.props.user.username,
+      roomCreatedAt: this.props.firebase.serverValue.TIMESTAMP
     });
 
     const dataHost = await fetch("/video/token", {
@@ -74,7 +75,8 @@ class UserItem extends Component {
       username: this.props.authUser.username,
       roles: this.props.authUser.roles,
       token: dataHost.token,
-      roomName: this.props.user.username
+      roomName: this.props.user.username,
+      roomCreatedAt: this.props.firebase.serverValue.TIMESTAMP
     });
 
     this.props.history.push(ROUTES.HOME);
@@ -86,9 +88,6 @@ class UserItem extends Component {
 
     return (
       <div>
-        <h2>User ({this.props.match.params.id})</h2>
-        {loading && <div>Loading ...</div>}
-
         {user && (
           <div>
             <span>

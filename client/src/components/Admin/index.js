@@ -5,19 +5,21 @@ import { compose } from "recompose";
 import { withAuthorization, withEmailVerification } from "../Session";
 
 import { UserList, UserItem } from "../Users";
+import Rooms from "../Room/Rooms";
 import * as ROLES from "../../constants/roles";
 import * as ROUTES from "../../constants/routes";
 
 const AdminPage = () => {
   return (
     <div>
-      <h1>Admin</h1>
+      <h3>Admin</h3>
       <p></p>
 
       <Switch>
         <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
         <Route exact path={ROUTES.ADMIN} component={UserList} />
       </Switch>
+      <Rooms />
     </div>
   );
 };

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import _ from "lodash";
 
 import styled from "styled-components";
 import { Logo } from "../../assets/logo.js";
@@ -23,6 +24,7 @@ const StyledMenu = styled.nav`
   @media (max-width: 576px) {
     width: 100%;
   }
+
   ul {
     display: flex;
     flex-flow: wrap;
@@ -45,7 +47,7 @@ const StyledMenu = styled.nav`
     transition: color 0.3s linear;
 
     @media (max-width: 576px) {
-      font-size: 1rem;
+      font-size: 2rem;
       text-align: center;
     }
 
@@ -75,7 +77,7 @@ const StyledBurger = styled.button`
     transition: all 0.3s linear;
     position: relative;
     transform-origin: 1px;
-    z-index: 20;
+    z-index: 2;
 
     :first-child {
       background: ${({ open }) => (open ? "white" : "#c5986a")};
@@ -97,7 +99,7 @@ const StyledBurger = styled.button`
 
 const StyledHeader = styled.header`
   display: flex;
-  flex-flow: wrap;
+  flex-flow: nowrap;
   align-items: center;
   justify-content: space-between;
   height: 100%;
@@ -109,6 +111,11 @@ const StyledHeader = styled.header`
 
   @media (max-width: 576px) {
     padding: 0.5rem 2rem 0.5rem 2rem;
+
+    button {
+      max-width: 5rem;
+      font-size: 0.75rem;
+    }
   }
 
   svg {
@@ -141,8 +148,28 @@ const Burger = ({ open, setOpen }) => {
 };
 
 const Navigation = ({ authUser }) => {
-  const [open, setOpen] = React.useState(false);
-  const node = React.useRef();
+  const [open, setOpen] = useState(false);
+  const node = useRef();
+
+  useEffect(() => {
+    document.addEventListener("mousemove", _.throttle(mouseOnSidebar, 400));
+    return () => {
+      document.removeEventListener(
+        "mousemove",
+        _.throttle(mouseOnSidebar, 400)
+      );
+    };
+  });
+
+  const mouseOnSidebar = e => {
+    const threshold = 300;
+
+    if (e.clientX < threshold) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  };
 
   return (
     <StyledHeader>
@@ -150,7 +177,7 @@ const Navigation = ({ authUser }) => {
         <>
           <div ref={node}>
             <Burger open={open} setOpen={setOpen} />
-            <Menu open={open} setOpen={setOpen} authUser={authUser} />
+            <Menu open={open} authUser={authUser} />
           </div>
           <Link to={ROUTES.LANDING}>
             <Logo />

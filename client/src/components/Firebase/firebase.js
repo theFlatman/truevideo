@@ -68,8 +68,6 @@ class Firebase {
               email: authUser.email,
               emailVerified: authUser.emailVerified,
               providerData: authUser.providerData,
-              roomName: "",
-              token: "",
               ...dbUser
             };
 
@@ -91,6 +89,11 @@ class Firebase {
   message = uid => this.db.ref(`messages/${uid}`);
 
   messages = () => this.db.ref("messages");
+
+  // *** Room API ***
+
+  room = uid => this.db.ref(`rooms/${uid}`);
+  rooms = () => this.db.ref("rooms");
 }
 
 export default Firebase;

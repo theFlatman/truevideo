@@ -16,6 +16,7 @@ export const GlobalStyles = createGlobalStyle`
     justify-content: center;
     margin: 0px;
     width: 100%;
+ 
   }
 
   button {

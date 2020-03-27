@@ -1,4 +1,4 @@
-const config = require("./config");
+const config = require("./configDev");
 const express = require("express");
 const bodyParser = require("body-parser");
 const pino = require("express-pino-logger")();
