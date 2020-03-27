@@ -18,8 +18,8 @@ import * as ROUTES from "../../constants/routes";
 const NavigationWrapper = styled.div`
   position: sticky;
   top: 0px;
-  width: 100vw;
-  height: 80px;
+  width: 100%;
+  height: 5rem;
   box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.15);
   z-index: 50;
 
@@ -30,9 +30,18 @@ const NavigationWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   display: flex;
-  width: 100vw;
+  width: auto;
   height: 100%;
-  margin: 100px 30px 100px 30px;
+  margin: 2rem 2rem 6rem 2rem;
+  justify-content: center;
+  flex-direction: row;
+`;
+
+const ContentBox = styled.div`
+  display: flex;
+  width: auto;
+  height: 100%;
+  flex-direction: column;
   justify-content: center;
 `;
 
@@ -46,13 +55,18 @@ const RenderedApp = () => (
       </NavigationWrapper>
       <ContentWrapper>
         <Switch>
-          <Route exact path={ROUTES.LANDING} component={LandingPage} />
-          <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-          <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-          <Route path={ROUTES.HOME} component={HomePage} />
-          <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-          <Route path={ROUTES.ADMIN} component={AdminPage} />
+          <ContentBox>
+            <Route exact path={ROUTES.LANDING} component={LandingPage} />
+            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+            <Route
+              path={ROUTES.PASSWORD_FORGET}
+              component={PasswordForgetPage}
+            />
+            <Route path={ROUTES.HOME} component={HomePage} />
+            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+            <Route path={ROUTES.ADMIN} component={AdminPage} />
+          </ContentBox>
         </Switch>
       </ContentWrapper>
     </Router>

@@ -26,9 +26,9 @@ const StyledMenu = styled.nav`
   ul {
     display: flex;
     flex-flow: wrap;
-    margin-top: 50px;
+    margin-top: 3rem;
     list-style-type: none;
-    padding: 10px;
+    padding: 1rem;
   }
 
   li {
@@ -59,8 +59,8 @@ const StyledBurger = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 30px;
-  height: 30px;
+  width: 2rem;
+  height: 2rem;
   background: transparent;
   border: none;
   padding: 0;
@@ -68,7 +68,7 @@ const StyledBurger = styled.button`
 
   div {
     display: flex;
-    width: 30px;
+    width: 2rem;
     height: 0.25rem;
     background: #c5986a;
     border-radius: 10px;
@@ -96,55 +96,24 @@ const StyledBurger = styled.button`
 `;
 
 const StyledHeader = styled.header`
-  width: 100%;
-  height: 100%;
-  background-color: white;
   display: flex;
   flex-flow: wrap;
   align-items: center;
   justify-content: space-between;
-
-  overflow: hidden;
-  padding: 0px 50px 0px 50px;
-
-  @media (max-width: 576px) {
-    padding: 10px 20px 10px 20px;
-  }
-
-  svg {
-    width: 200px;
-    fill: #c5986a;
-  }
-`;
-
-const StyledHeaderNonAuth = styled.header`
-  width: 100%;
   height: 100%;
+  width: 100%;
   background-color: white;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+
   overflow: hidden;
-  padding: 0px 50px 0px 50px;
+  padding: 0 3rem 0 3rem;
 
-  a {
-    text-decoration: none;
-    color: #636363;
-  }
-
-  button {
-    width: 100px;
+  @media (max-width: 576px) {
+    padding: 0.5rem 2rem 0.5rem 2rem;
   }
 
   svg {
-    width: 200px;
+    width: 150px;
     fill: #c5986a;
-  }
-
-  @media (max-width: 576px) {
-    padding: 10px 20px 10px 20px;
   }
 `;
 
@@ -175,21 +144,25 @@ const Navigation = ({ authUser }) => {
   const [open, setOpen] = React.useState(false);
   const node = React.useRef();
 
-  return authUser ? (
+  return (
     <StyledHeader>
-      <div ref={node}>
-        <Burger open={open} setOpen={setOpen} />
-        <Menu open={open} setOpen={setOpen} authUser={authUser} />
-      </div>
-      <Link to={ROUTES.LANDING}>
-        <Logo />
-      </Link>
-      <SignOutButton />
+      {authUser ? (
+        <>
+          <div ref={node}>
+            <Burger open={open} setOpen={setOpen} />
+            <Menu open={open} setOpen={setOpen} authUser={authUser} />
+          </div>
+          <Link to={ROUTES.LANDING}>
+            <Logo />
+          </Link>
+          <SignOutButton />
+        </>
+      ) : (
+        <>
+          <NavigationNonAuth />
+        </>
+      )}
     </StyledHeader>
-  ) : (
-    <StyledHeaderNonAuth>
-      <NavigationNonAuth />
-    </StyledHeaderNonAuth>
   );
 };
 

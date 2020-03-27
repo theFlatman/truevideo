@@ -1,53 +1,65 @@
 import React, { useState, useEffect } from "react";
 import Video from "twilio-video";
-import Participant from "../Participant";
 import styled from "styled-components";
+import Fullscreen from "react-full-screen";
+import Participant from "../Participant";
+import { FullscreenIcon } from "../../assets/fullscreen";
 
-const VideoWrapper = styled.div`
+const StyledVideo = styled.div`
   display: flex;
+  position: relative;
+  height: 100%;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
-`;
-
-const VideoWrapperRemote = styled.div`
-  display: flex;
+  align-items: center;
 
   video {
-    position: absolute;
-    top: 80px;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 10;
+    display: flex;
+    height: inherit;
+    width: auto;
   }
 `;
 
-const VideoWrapperLocal = styled.div`
-  display: flex;
-  border: 1px solid #c5986a;
-  position: relative;
-  bottom: 100px;
-  right: 100px;
-  width: auto;
-  height: 10%;
-  z-index: 11;
+const OverlayWrapper = styled.div`
+  position: absolute;
+  z-index: 20;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+  video {
+    border: 1px solid #c5986a;
+    max-height: 30%;
+    max-width: ${({ isFull }) => (isFull ? "30%" : "50%")};
+  }
 `;
 
 const FullscreenButton = styled.button`
-  position: relative;
-  bottom: 20px;
-  right: 20px;
-  width: 30px;
-  height: 15px;
-  background-color: transparent;
-  border: 5px solid #c5986a;
+  position: absolute;
+  bottom: 1rem;
+  right: 0.5rem;
   z-index: 12;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  z-index: 21;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: #c5986a;
+    z-index: 21;
+  }
 `;
 
 const Room = ({ roomName, token }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
+  const [isFull, setFull] = useState(false);
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -87,34 +99,35 @@ const Room = ({ roomName, token }) => {
   }, [roomName, token]);
 
   const remoteParticipants = participants.map(participant => (
-    <Participant
-      key={participant.sid}
-      participant={participant}
-      local={false}
-    />
+    <Participant key={participant.sid} participant={participant} />
   ));
 
-  const handleFullscreen = elem => {
-    console.log("fullscreen button triggered");
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      /* Firefox */
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
-      /* Chrome, Safari & Opera */
-      elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      /* IE/Edge */
-      elem.msRequestFullscreen();
-    }
+  const handleFullscreen = () => {
+    console.log(isFull);
+    setFull(!isFull);
   };
 
   return (
     <>
-      <VideoWrapper>
-        <VideoWrapperRemote>{remoteParticipants}</VideoWrapperRemote>
-      </VideoWrapper>
+      <Fullscreen enabled={isFull} onChange={isFull => setFull(isFull)}>
+        <StyledVideo>
+          {remoteParticipants}
+
+          <OverlayWrapper isFull={isFull}>
+            {room ? (
+              <Participant
+                key={room.localParticipant.sid}
+                participant={room.localParticipant}
+              />
+            ) : (
+              ""
+            )}
+          </OverlayWrapper>
+          <FullscreenButton onClick={handleFullscreen}>
+            <FullscreenIcon />
+          </FullscreenButton>
+        </StyledVideo>
+      </Fullscreen>
     </>
   );
 };

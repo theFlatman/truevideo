@@ -11,9 +11,11 @@ export const GlobalStyles = createGlobalStyle`
     color: #c5986a;
     font-family: Montserrat, sans-serif;
     overflow-x:hidden;
-    height: 100%;
-    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: 0px;
+    width: 100%;
   }
 
   button {
@@ -24,9 +26,9 @@ export const GlobalStyles = createGlobalStyle`
     background-color: transparent;
     color: #636363;
     border: 1px solid #c5986a;
-    padding: 5px 10px 5px 10px;
-    margin: 5px;
-    font-size: 16px;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    font-size: 1rem;
   }
 
   input {
@@ -35,9 +37,9 @@ export const GlobalStyles = createGlobalStyle`
     background-color: transparent;
     color: #636363;
     border: 1px solid #c5986a;
-    padding: 5px 10px 5px 10px;
-    margin: 5px;
-    font-size: 16px;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    font-size: 1rem;
   }
 
 `;

@@ -1,18 +1,11 @@
 import React from "react";
 import { compose } from "recompose";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import Room from "../Room";
 
 import { withFirebase } from "../Firebase";
 import { withAuthorization, withEmailVerification } from "../Session";
 import Messages from "../Messages";
-
-const HomeWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-`;
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -39,19 +32,16 @@ class HomePage extends React.Component {
   render() {
     return (
       <>
-        <HomeWrapper>
-          <h1>Home</h1>
-          {this.state.token === "" ? (
-            <div>
-              <h2>
-                Momentan ist kein Videochat für sie verfügbar. Der Videochat
-                wird verfügbar sobald Marcel ihn gestartet hat.
-              </h2>
-            </div>
-          ) : (
-            <Room roomName={this.state.room} token={this.state.token} />
-          )}
-        </HomeWrapper>
+        {this.state.token === "" ? (
+          <div>
+            <h2>
+              Momentan ist kein Videochat für sie verfügbar. Der Videochat wird
+              verfügbar sobald Marcel ihn gestartet hat.
+            </h2>
+          </div>
+        ) : (
+          <Room roomName={this.state.room} token={this.state.token} />
+        )}
       </>
     );
   }
