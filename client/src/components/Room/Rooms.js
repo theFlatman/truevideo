@@ -1,20 +1,36 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "recompose";
-import Search from "react-search";
+import styled from "styled-components";
+import { Dropdown } from "semantic-ui-react";
 
 import { withFirebase } from "../Firebase";
 import RoomList from "./RoomList";
+
+const StyledForm = styled.form`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+`;
+
+const StyledDropdown = styled(Dropdown)`
+  padding: 0.5rem;
+  margin: 0.5rem;
+
+  input:focus {
+    color: transparent;
+  }
+`;
 
 class Rooms extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      loading: false,
       roomName: "",
-      remoteParticipant: "",
-      remoteToken: "",
-      loading: false
+      remoteUser: ""
     };
   }
 
@@ -35,6 +51,12 @@ class Rooms extends Component {
     }
   }
 
+  onListenForUsers = () => {
+    this.props.firebase.users().on("value", snapshot => {
+      this.props.onSetUsers(snapshot.val());
+    });
+  };
+
   onListenForRooms = () => {
     this.props.firebase
       .rooms()
@@ -44,100 +66,100 @@ class Rooms extends Component {
       });
   };
 
-  onListenForUsers = () => {
-    this.props.firebase.users().on("value", snapshot => {
-      this.props.onSetUsers(snapshot.val());
-    });
-  };
-
   componentWillUnmount() {
     this.props.firebase.rooms().off();
     this.props.firebase.users().off();
   }
 
-  onChangeRoomName = event => {
-    this.setState({ roomName: event.target.value });
-  };
-
-  onUserSelected = event => {
-    this.setState({ remoteParticipant: event.target.value });
-  };
-
-  onCreateRoom = async (event, authUser) => {
+  onCreateRoom = async event => {
+    event.preventDefault();
     const dataClient = await fetch("/video/token", {
       method: "POST",
       body: JSON.stringify({
-        identity: this.props.user.username.split(" ").join(""),
-        room: this.props.user.username
+        identity: this.state.remoteUser.name.split(" ").join(""),
+        room: this.state.roomName
       }),
       headers: {
         "Content-Type": "application/json"
       }
     }).then(res => res.json());
-
-    this.props.firebase.user(this.props.match.params.id).set({
-      ...this.props.user,
-      token: dataClient.token,
-      roomName: this.props.user.username,
-      roomCreatedAt: this.props.firebase.serverValue.TIMESTAMP
-    });
-
     const dataHost = await fetch("/video/token", {
       method: "POST",
       body: JSON.stringify({
         identity: this.props.authUser.username.split(" ").join(""),
-        room: this.props.user.username
+        room: this.state.roomName
       }),
       headers: {
         "Content-Type": "application/json"
       }
     }).then(res => res.json());
-
     this.props.firebase.rooms().push({
       roomName: this.state.roomName,
-      participants: [authUser.username, this.state.remoteParticipant],
-      token: this.state.remoteToken,
-      createdAt: this.props.firebase.serverValue.TIMESTAMP
+      createdAt: this.props.firebase.serverValue.TIMESTAMP,
+      participants: {
+        [this.props.authUser.uid]: {
+          token: dataHost.token,
+          name: this.props.authUser.username
+        },
+
+        [this.state.remoteUser.uid]: {
+          token: dataClient.token,
+          name: this.state.remoteUser.name
+        }
+      }
     });
-
     this.setState({ roomName: "" });
-
-    event.preventDefault();
   };
 
   onRemoveRoom = uid => {
     this.props.firebase.room(uid).remove();
   };
 
+  handleChange = (e, data) => {
+    e.persist();
+    this.setState({
+      remoteUser: { uid: data.value, name: e.target.textContent }
+    });
+  };
+
   render() {
     const { rooms } = this.props;
-    const { roomName, loading } = this.state;
+    const { roomName, loading, remoteUser } = this.state;
+
     const users = this.props.users.map((user, i) => {
-      return { id: i + 1, value: user.username };
+      return {
+        key: i + 1,
+        text: user.username,
+        value: user.uid
+      };
     });
 
     return (
       <div>
+        <h3>Videosession erstellen</h3>
         {loading && <div>Loading ...</div>}
 
-        {rooms && <RoomList rooms={rooms} onRemoveRoom={this.onRemoveRoom} />}
-
-        {!rooms && <div>Keine weiteren Räume ...</div>}
-
-        <form onSubmit={event => this.onCreateRoom(event, this.props.authUser)}>
+        <StyledForm onSubmit={event => this.onCreateRoom(event)}>
           <input
             type="text"
             value={roomName}
-            onChange={this.onChangeRoomName}
+            onChange={e => this.setState({ roomName: e.target.value })}
+            placeholder="Name der Videosession"
           />
-          <Search
-            items={users}
+
+          <StyledDropdown
+            onChange={this.handleChange}
+            options={users}
             placeholder="Kunde auswählen"
-            maxSelected={1}
-            onItemsChanged={() => this.onUserSelected}
+            search
+            selection
+            value={remoteUser.uid}
           />
           <button type="submit">Erstellen</button>
-        </form>
+        </StyledForm>
+
+        {rooms && <RoomList rooms={rooms} onRemoveRoom={this.onRemoveRoom} />}
+        {!rooms && <div>Keine weiteren Räume ...</div>}
       </div>
     );
   }
@@ -145,12 +167,12 @@ class Rooms extends Component {
 
 const mapStateToProps = state => ({
   authUser: state.sessionState.authUser,
-  rooms: Object.keys(state.roomState.rooms || {}).map(key => ({
-    ...state.roomState.rooms[key],
-    uid: key
-  })),
   users: Object.keys(state.userState.users || {}).map(key => ({
     ...state.userState.users[key],
+    uid: key
+  })),
+  rooms: Object.keys(state.roomState.rooms || {}).map(key => ({
+    ...state.roomState.rooms[key],
     uid: key
   }))
 });

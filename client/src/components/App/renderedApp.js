@@ -9,6 +9,7 @@ import SignUpPage from "../SignUp";
 import SignInPage from "../SignIn";
 import PasswordForgetPage from "../PasswordForget";
 import HomePage from "../Home";
+import Room from "../Room";
 import AccountPage from "../Account";
 import AdminPage from "../Admin";
 
@@ -64,6 +65,7 @@ const RenderedApp = () => (
               component={PasswordForgetPage}
             />
             <Route path={ROUTES.HOME} component={HomePage} />
+            <Route path={ROUTES.ROOM} component={Room} />
             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route path={ROUTES.ADMIN} component={AdminPage} />
           </ContentBox>

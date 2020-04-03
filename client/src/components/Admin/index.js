@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { compose } from "recompose";
 
@@ -10,16 +10,25 @@ import * as ROLES from "../../constants/roles";
 import * as ROUTES from "../../constants/routes";
 
 const AdminPage = () => {
+  const [user, selectUser] = useState("");
+
   return (
     <div>
       <h3>Admin</h3>
-      <p></p>
-
       <Switch>
         <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
-        <Route exact path={ROUTES.ADMIN} component={UserList} />
+        <Route
+          exact
+          path={ROUTES.ADMIN}
+          render={props => (
+            <UserList
+              {...props}
+              selectUserForRoom={selectedUser => selectUser(selectedUser)}
+            />
+          )}
+        />
       </Switch>
-      <Rooms />
+      <Rooms addedUser={user} />
     </div>
   );
 };

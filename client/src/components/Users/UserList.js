@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "recompose";
+import { Table } from "semantic-ui-react";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
@@ -36,25 +37,32 @@ class UserList extends Component {
     const { loading } = this.state;
 
     return (
-      <div>
+      <>
         <h2>Kunden</h2>
         {loading && <div>Loading ...</div>}
-        <ul>
-          {users.map(user => (
-            <li key={user.uid}>
-              <span>
-                <strong>E-Mail:</strong> {user.email}
-              </span>
-              <span>
-                <strong>Name:</strong> {user.username}
-              </span>
-              <span>
-                <Link to={`${ROUTES.ADMIN}/${user.uid}`}>Details</Link>
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Name</Table.HeaderCell>
+              <Table.HeaderCell>E-Mail</Table.HeaderCell>
+              <Table.HeaderCell></Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {users.map(user => (
+              <Table.Row key={user.uid}>
+                <Table.Cell>{user.username}</Table.Cell>
+                <Table.Cell>{user.email}</Table.Cell>
+                <Table.Cell>
+                  <Link to={`${ROUTES.ADMIN}/${user.uid}`}>
+                    <button>Verwalten</button>
+                  </Link>
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </>
     );
   }
 }

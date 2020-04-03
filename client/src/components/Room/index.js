@@ -56,10 +56,11 @@ const FullscreenButton = styled.button`
   }
 `;
 
-const Room = ({ roomName, token }) => {
+const Room = props => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
   const [isFull, setFull] = useState(false);
+  const { name, token } = props.match.params;
 
   useEffect(() => {
     const participantConnected = participant => {
@@ -73,13 +74,18 @@ const Room = ({ roomName, token }) => {
     };
 
     Video.connect(token, {
-      name: roomName
-    }).then(room => {
-      setRoom(room);
-      room.on("participantConnected", participantConnected);
-      room.on("participantDisconnected", participantDisconnected);
-      room.participants.forEach(participantConnected);
-    });
+      name: name
+    }).then(
+      room => {
+        setRoom(room);
+        room.on("participantConnected", participantConnected);
+        room.on("participantDisconnected", participantDisconnected);
+        room.participants.forEach(participantConnected);
+      },
+      error => {
+        console.log(error);
+      }
+    );
 
     return () => {
       setRoom(currentRoom => {
@@ -96,7 +102,7 @@ const Room = ({ roomName, token }) => {
         }
       });
     };
-  }, [roomName, token]);
+  }, [name, token]);
 
   const remoteParticipants = participants.map(participant => (
     <Participant key={participant.sid} participant={participant} />

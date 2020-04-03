@@ -41,7 +41,6 @@ const StyledMenu = styled.nav`
     font-size: 1.5rem;
     text-transform: uppercase;
     font-weight: bold;
-    letter-spacing: 0.5rem;
     color: #0d0c1d;
     text-decoration: none;
     transition: color 0.3s linear;

@@ -11,11 +11,10 @@ export const GlobalStyles = createGlobalStyle`
     color: #c5986a;
     font-family: Montserrat, sans-serif;
     overflow-x:hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    
     margin: 0px;
     width: 100%;
+    height: 100%;
  
   }
 
@@ -35,7 +34,6 @@ export const GlobalStyles = createGlobalStyle`
   input {
     text-decoration: none;
     font-family: Montserrat, sans-serif;
-    background-color: transparent;
     color: #636363;
     border: 1px solid #c5986a;
     padding: 0.5rem;

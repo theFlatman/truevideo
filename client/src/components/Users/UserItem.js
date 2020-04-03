@@ -3,8 +3,22 @@ import { connect } from "react-redux";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
 import { withFirebase } from "../Firebase";
+import { Table, Icon } from "semantic-ui-react";
+import styled from "styled-components";
 
+import history from "../../history";
 import * as ROUTES from "../../constants/routes";
+
+const StyledButton = styled.button`
+  border: none;
+  color: #c5986a;
+  width: auto;
+  height: auto;
+
+  :hover {
+    cursor: pointer;
+  }
+`;
 
 class UserItem extends Component {
   constructor(props) {
@@ -79,7 +93,7 @@ class UserItem extends Component {
       roomCreatedAt: this.props.firebase.serverValue.TIMESTAMP
     });
 
-    this.props.history.push(ROUTES.HOME);
+    history.push(ROUTES.HOME);
   };
 
   render() {
@@ -88,27 +102,33 @@ class UserItem extends Component {
 
     return (
       <div>
+        <StyledButton onClick={history.goBack}>
+          <Icon name="chevron left" size="large" />
+        </StyledButton>
+        {loading && <div>Loading ...</div>}
         {user && (
-          <div>
-            <span>
-              <strong>ID:</strong> {user.uid}
-            </span>
-            <span>
-              <strong>E-Mail:</strong> {user.email}
-            </span>
-            <span>
-              <strong>Username:</strong> {user.username}
-            </span>
-            <span>
-              <button type="button" onClick={this.onSendPasswordResetEmail}>
-                Passwort zurücksetzen
-              </button>
-              <button type="button" onClick={this.onCreateRoom}>
-                VideoChat starten
-              </button>
-            </span>
-          </div>
+          <Table celled>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Name</Table.HeaderCell>
+                <Table.HeaderCell>E-Mail</Table.HeaderCell>
+                <Table.HeaderCell></Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell>{user.username}</Table.Cell>
+                <Table.Cell>{user.email}</Table.Cell>
+                <Table.Cell>
+                  <button type="button" onClick={this.onSendPasswordResetEmail}>
+                    Passwort zurücksetzen
+                  </button>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
         )}
+        <br />
       </div>
     );
   }
