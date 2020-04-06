@@ -29,6 +29,10 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0.5rem;
     margin: 0.5rem;
     font-size: 1rem;
+
+    :hover {
+      cursor:pointer;
+    }
   }
 
   input {

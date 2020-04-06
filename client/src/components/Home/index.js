@@ -29,8 +29,8 @@ class HomePage extends React.Component {
   onListenForRooms() {
     this.props.firebase
       .rooms()
-      .orderByChild("/participants/" + this.props.authUser.uid)
-      .on("value", snapshot => {
+      .orderByChild("createdAt")
+      .on("value", (snapshot) => {
         this.props.onSetRooms(snapshot.val());
 
         this.setState({ loading: false });
@@ -45,17 +45,19 @@ class HomePage extends React.Component {
       <>
         {loading && <div>Loading ...</div>}
         {rooms ? (
-          rooms.map(room => {
-            return (
-              <Link
-                key={room.uid}
-                to={`/home/room/${room.roomName}/${
-                  room.participants[this.props.authUser.uid].token
-                }`}
-              >
-                <button>{room.roomName}</button>
-              </Link>
-            );
+          rooms.map((room) => {
+            if (room.participants[this.props.authUser.uid]) {
+              return (
+                <Link
+                  key={room.uid}
+                  to={`/home/room/${room.roomName}/${
+                    room.participants[this.props.authUser.uid].token
+                  }`}
+                >
+                  <button>{room.roomName}</button>
+                </Link>
+              );
+            }
           })
         ) : (
           <div>
@@ -69,18 +71,18 @@ class HomePage extends React.Component {
     );
   }
 }
-const condition = authUser => !!authUser;
+const condition = (authUser) => !!authUser;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authUser: state.sessionState.authUser,
-  rooms: Object.keys(state.roomState.rooms || {}).map(key => ({
+  rooms: Object.keys(state.roomState.rooms || {}).map((key) => ({
     ...state.roomState.rooms[key],
-    uid: key
-  }))
+    uid: key,
+  })),
 });
 
-const mapDispatchToProps = dispatch => ({
-  onSetRooms: rooms => dispatch({ type: "ROOMS_SET", rooms })
+const mapDispatchToProps = (dispatch) => ({
+  onSetRooms: (rooms) => dispatch({ type: "ROOMS_SET", rooms }),
 });
 
 export default compose(

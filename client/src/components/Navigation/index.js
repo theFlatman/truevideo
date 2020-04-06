@@ -151,17 +151,19 @@ const Navigation = ({ authUser }) => {
   const node = useRef();
 
   useEffect(() => {
-    document.addEventListener("mousemove", _.throttle(mouseOnSidebar, 400));
-    return () => {
-      document.removeEventListener(
-        "mousemove",
-        _.throttle(mouseOnSidebar, 400)
-      );
-    };
+    if (window.innerWidth > 800) {
+      document.addEventListener("mousemove", _.throttle(mouseOnSidebar, 300));
+      return () => {
+        document.removeEventListener(
+          "mousemove",
+          _.throttle(mouseOnSidebar, 300)
+        );
+      };
+    }
   });
 
-  const mouseOnSidebar = e => {
-    const threshold = 300;
+  const mouseOnSidebar = (e) => {
+    const threshold = 200;
 
     if (e.clientX < threshold) {
       setOpen(true);
@@ -226,8 +228,8 @@ const NavigationNonAuth = () => (
   </>
 );
 
-const mapStateToProps = state => ({
-  authUser: state.sessionState.authUser
+const mapStateToProps = (state) => ({
+  authUser: state.sessionState.authUser,
 });
 
 export default connect(mapStateToProps)(Navigation);
